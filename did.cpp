@@ -51,16 +51,41 @@ public:
         const string &phone, const string &country, const string &address)
     {
         uint64_t owner = get_trx_sender();
-        users.emplace(owner, [&](auto &u) {
-            u.user_id = owner;
-            u.first_name = first_name;
-            u.last_name = last_name;
-            u.birthday = birthday;
-            u.email = email;
-            u.phone = phone;
-            u.country = country;
-            u.address = address;
-        });
+        auto iter = users.find(owner);
+        if(iter == users.end()) {
+            users.emplace(owner, [&](auto &u) {
+                u.user_id = owner;
+                u.first_name = first_name;
+                u.last_name = last_name;
+                u.birthday = birthday;
+                u.email = email;
+                u.phone = phone;
+                u.country = country;
+                u.address = address;
+            });
+        } else {
+            if(iter->first_name != first_name) {
+                update("first_name", first_name);
+            }
+            if(iter->last_name != last_name) {
+                update("last_name", last_name);
+            }
+            if(iter->birthday != birthday) {
+                update("birthday", birthday);
+            }
+            if(iter->email != email) {
+                update("email", email);
+            }
+            if(iter->phone != phone) {
+                update("phone", phone);
+            }
+            if(iter->country != country) {
+                update("country", country);
+            }
+            if(iter->address != address) {
+                update("address", address);
+            }
+        }
     }
     
     /// @abi action

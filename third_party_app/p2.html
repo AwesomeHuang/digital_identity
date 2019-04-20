@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="img/logo.png"/>
+    <title>服务商</title>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/mmss.css"/>
+    <link rel="stylesheet" href="css/font-awesome.min.css"/>
+    <script src="js/gscatterjs-core.min.js"></script>
+	<script src="js/crypto-js/core.js"></script>
+	<script src="js/crypto-js/x64-core.js"></script>
+	<script src="js/crypto-js/sha256.js"></script>
+	    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <style>
+
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container-fluid navbar-fixed-top bg-primary">
+        <ul class="nav navbar-nav  left">
+            <li class="text-white h3">
+                &nbsp;&nbsp;<b>五只小飞猪</b>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav nav-pills right ">
+            <li class="text-center"><a href="login.html"><span class="text-primary"><b>退出</b></span></a></li>
+        </ul>
+    </div>
+</header>
+
+<section >
+    <div class="container-fluid">
+        <div class="row ">
+            <!--左侧导航开始-->
+            <div class="col-xs-2 bg-blue">
+                <br/>
+                <div class="panel-group sidebar-menu" id="accordion" aria-multiselectable="true">
+                    <div class="panel panel-default menu-first menu-first-active">
+                        <a data-toggle="collapse" data-parent="#accordion" href="index.html" aria-expanded="true"
+                           aria-controls="collapseOne">
+                            <i class="icon-home icon-large"></i> 主页
+                        </a>
+                    </div>
+                    <div class="panel panel-default menu-first">
+                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"
+                           aria-expanded="false" aria-controls="collapseTwo">
+                            <i class="icon-book icon-large"></i> 用户管理 </a>
+                        </a>
+                        <div id="collapseTwo" class="panel-collapse collapse in">
+                            <ul class="nav nav-list menu-second">
+                                <li><a href="p2.html"><i class="icon-user"></i> &nbsp;用户信息</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--左侧导航结束-->
+            <!----------------------------------------------------------------------------------------------------->
+            <!--右侧内容开始-->
+
+            <div class="col-xs-10">
+
+                <br/><br/>
+                <ol class="breadcrumb">
+                    <li><a href="index.html"><span class="glyphicon glyphicon-home"></span>&nbsp;后台首页</a></li>
+                    <li class="active">用户管理 - 用户信息</li>
+                </ol>
+                <div class="input-group line left">
+                    <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-search"></span></span>
+                    <input type="text" class="form-control" placeholder="输入关键字搜索" aria-describedby="basic-addon2">
+                </div>
+                <br/><br/><br/>
+                <table class="table table-bordered table-striped text-center bg-info">
+                    <thead >
+                    <tr class="info">
+                        <th class="text-center">序号</th>
+                        <th class="text-center">用户名</th>
+                        <th class="text-center">生日</th>
+                        <th class="text-center">邮箱</th>
+                        <th class="text-center">电话号码</th>
+                        <th class="text-center">国籍</th>
+                        <th class="text-center">家庭住址</th>
+                        <th class="text-center">备注</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td id="user_name"></td>
+                        <td id="birthday"></td>
+                        <td id="email"></td>
+                        <td id="phone_number"></td>
+                        <td id="identity"></td>
+                        <td id="address_home"></td>
+                        <td>
+                            <button type="button" class="btn btn-primary btn-sm" onclick="query()">获取</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>1</td>
+                        <td id="auto_user_name"></td>
+                        <td id="auto_birthday"></td>
+                        <td id="auto_email"></td>
+                        <td id="auto_phone_number"></td>
+                        <td id="auto_identity"></td>
+                        <td id="auto_address_home"></td>
+                        <td>
+
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>2</td>
+                        <td></td>
+                        <td ></td>
+                        <td ></td>
+                        <td ></td>
+                        <td ></td>
+                        <td ></td>
+                        <td >
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td></td>
+                        <td ></td>
+                        <td ></td>
+                        <td ></td>
+                        <td ></td>
+                        <td ></td>
+                        <td>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td></td>
+                        <td ></td>
+                        <td ></td>
+                        <td ></td>
+                        <td ></td>
+                        <td ></td>
+                        <td>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td></td>
+                        <td ></td>
+                        <td ></td>
+                        <td ></td>
+                        <td ></td>
+                        <td ></td>
+                        <td>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td></td>
+                        <td ></td>
+                        <td ></td>
+                        <td ></td>
+                        <td ></td>
+                        <td ></td>
+                        <td>
+
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+                <ul class="pagination right">
+                    <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+                    </li>
+                    <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+                </ul>
+            </div>
+            <!--右侧内容结束-->
+        </div>
+    </div>
+</section>
+
+<script src="js/jquery-1.11.3.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/gxc_functions.js"></script>
+<script >
+
+</script>
+ <!--<script>
+    const network = {
+        blockchain: 'gxc',
+        protocol: 'https',
+        host: 'testnet.gxchain.org',
+        port: 443,
+        chainId: 'c2af30ef9340ff81fd61654295e98a1ff04b23189748f86727d0b26b40bb0ff4'
+    }
+    const requiredFields = {
+        personal: ['firstname', 'lastname', 'email', 'birthdate']
+    };
+    const accountNameElem = document.getElementById('accountName')
+    let gscatter, gxc;
+    function setAccountName(account) {
+        accountNameElem.innerText = account.name
+    }
+    function clearAccountName(account) {
+        accountNameElem.innerText = ''
+    }
+    GScatterJS.gscatter.connect('exampleApp').then(async connected => {
+        if (!connected) return false;
+        let account
+        gscatter = GScatterJS.gscatter;
+        // require version, if user's plugin is less than the version, when operate, plugin will prompt a tips
+        // gscatter.requireVersion('9.9.9')
+        // when user not login, you could use api which not need identity, like generateKey
+        gxc = gscatter.gxc(network);
+        // if identity exist, means user has authorize the website and already unlock, you could display user info then
+        if (gscatter.identity) {
+            account = gscatter.identity.accounts.find(x => x.blockchain === 'gxc');
+            setAccountName(account)
+        }
+    });
+    window.login = async () => {
+        let identity
+        try {
+            // if you want user add the network, you could call suggestNetwork, if user already has, nothing happen
+            await gscatter.suggestNetwork(network);
+        } catch (err) {
+            // user refuse or close the prompt window
+            console.error(err)
+            return;
+        }
+        try {
+            // required fields, it will appear at gscatter.identity
+            identity = await gscatter.getIdentity({ accounts: [network] })
+        } catch (err) {
+            // user refuse or close the prompt window
+            console.error(err)
+            return;
+        }
+        // you could get gscatter.identity.accounts because of { accounts: [network] } before
+        const account = gscatter.identity.accounts.find(x => x.blockchain === 'gxc');
+        setAccountName(account)
+    };
+    window.logout = async () => {
+        try {
+            await gscatter.forgetIdentity();
+            clearAccountName()
+        } catch (err) {
+            // no identity found
+            console.error(err)
+        }
+    };
+    window.transfer = async () => {
+        // if user don't have these requiredFields, the operation would be cancel, and go to catch area
+        gxc.transfer('youxiu123', 'memo info', '1 GXC', true).then(trx => {
+            console.log(`transfer success`, trx);
+        }).catch(error => {
+            if (error.code === 432) {
+                alert('you don\'t authorize identity!')
+            }
+            console.error(error);
+        });
+    };
+    window.contract = () => {
+        gxc.callContract('lzydododo', 'hi', { user: 'lzy' }, 0, true).then(trx => {
+            console.log(`call contract success`, trx);
+        }).catch(error => {
+            console.error(error);
+        });
+    }
+    window.vote = () => {
+        gxc.vote(['math-wallet-test', 'gxc-pacific'], true).then(trx => {
+            console.log(`vote success`, trx);
+        }).catch(error => {
+            console.error(error);
+        });
+    }
+    window.generateKey = async () => {
+        const key = await gxc.generateKey()
+        console.log(key)
+    }
+    window.queryAccount = async () => {
+        const account = await gxc.getAccount('lzydophin94')
+        console.log(account)
+    }
+    window.getBalance = () => {
+        const account = gscatter.identity.accounts.find(x => x.blockchain === 'gxc');
+        gxc.getAccountBalances(account.name).then(res => {
+            console.log('balances:', res)
+        }).catch(err => {
+            console.error(err)
+        })
+    }
+    window.checkExtension = () => {
+        // don't have extension
+        if (!GScatterJS.gscatter.isExtension) {
+            var flag = confirm('You haven\'t download extension, confirm to download')
+            if (flag) {
+                // if installed, nothing hapen
+                GScatterJS.openExtensionPage()
+            }
+        }
+    }
+    window.getArbitrarySignature = async () => {
+        const publicKey = gscatter.identity.publicKey
+        try{
+            const sig = await gscatter.getArbitrarySignature(publicKey, 'max data size is 64 byte')
+            console.log(sig)
+        }catch(err){
+            console.log(err)
+        }
+
+    }
+    window.query = () => {
+        gxc.getTableObjects('wind18','user',0,100).then(trx => {
+            document.getElementById('user_name').innerText=trx[0].first_name + trx[0].last_name;
+            document.getElementById('birthday').innerText=trx[0].birthday;
+            document.getElementById('email').innerText=trx[0].email;
+            document.getElementById('phone_number').innerText=trx[0].phone;
+            document.getElementById('identity').innerText=trx[0].country;
+            document.getElementById('address_home').innerText=trx[0].address;
+            //alert(trx[0].owner);
+        }).catch(error => {
+            console.error(error);
+        });
+    }
+</script>-->
+<!--
+<script>
+    /*Bootlint工具用于对页面中的HTML标签以及Bootstrapclass的使用进行检测*/
+    (function () {
+        var s = document.createElement("script");
+        s.onload = function () {
+            bootlint.showLintReportForCurrentDocument([]);
+        };
+        s.src = "js/bootlint.js";
+        document.body.appendChild(s)
+    })();
+
+//    添加编辑模态框
+    $('#add').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var recipient = button.data('whatever') // Extract info from data-* attributes
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var modal = $(this)
+        modal.find('.modal-title').text('' + recipient)
+        modal.find('.modal-body input').val(recipient)
+    })
+</script>
+-->
+</body>
+</html>
