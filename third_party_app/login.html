@@ -315,7 +315,7 @@ window.contract = () => {
 	let app_name = "testApp";
 	let app_pubkey = "5Uj7f44nwQOASaryAAv6ZGUbUHcNfXdLiJCidrz9sHw/KOHKjQHfB6DVCQIDAQAB";
 	let keys = fname_key + "," + lname_key + "," + email_key;	
-    gxc.callContract('did007', 'authorize', { app_name: app_name, keys: keys, app_pubkey: app_pubkey }, 0, true).then(trx => {
+    gxc.callContract('did008', 'authorize', { app_name: app_name, keys: keys, app_pubkey: app_pubkey }, 0, true).then(trx => {
         console.log(`call contract success`, trx);
         window.location.href="./index.html"
     }).catch(error => {
@@ -370,7 +370,7 @@ window.getArbitrarySignature = async () => {
 //const crypto = require("crypto");
 
 window.query = () => {
-    gxc.getTableObjects('did004','user',0,100).then(trx => {
+    gxc.getTableObjects('did008','user',0,100).then(trx => {
 
 		let first_name = decrypt(trx[0].first_name, fname_key);
 		let last_name = decrypt(trx[0].last_name, lname_key);
@@ -391,7 +391,7 @@ window.query = () => {
     });
 }
 window.auto_query = () => {
-    gxc.getTableObjects('did004', 'user', 0, 100).then(trx => {
+    gxc.getTableObjects('did008', 'user', 0, 100).then(trx => {
         document.getElementById('auto_user_name').innerText = trx[0].first_name + trx[0].last_name;
         document.getElementById('auto_birthday').innerText = trx[0].birthday;
         document.getElementById('auto_email').innerText = trx[0].email;

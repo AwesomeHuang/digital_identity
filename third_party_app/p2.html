@@ -368,7 +368,7 @@ window.query = () => {
     if(typeof(gxc) == 'undefined') {
         let gxc = gscatter.gxc(network);
     }
-    gxc.getTableObjects('did007', 'user', 0, 100).then(trx => {
+    gxc.getTableObjects('did008', 'user', 0, 100).then(trx => {
         document.getElementById('user_name').innerText=substr(trx[0].first_name + trx[0].last_name);
         document.getElementById('birthday').innerText=substr(trx[0].birthday);
         document.getElementById('email').innerText=substr(trx[0].email);
@@ -384,7 +384,7 @@ window.decipher = () => {
 	if(typeof(gxc) == 'undefined') {
 		let gxc = gscatter.gxc(network);
 	}
-    gxc.getTableObjects('did007','user',0,100).then(trx => {
+    gxc.getTableObjects('did008','user',0,100).then(trx => {
 		console.log(trx);
 		console.log(fname_key);
 		let first_name = decrypt(trx[0].first_name, fname_key);
@@ -413,7 +413,7 @@ window.decipher = () => {
 }
 
 window.auto_query = () => {
-    gxc.getTableObjects('did007', 'user', 0, 100).then(trx => {
+    gxc.getTableObjects('did008', 'user', 0, 100).then(trx => {
         document.getElementById('auto_user_name').innerText = substr(trx[0].first_name + trx[0].last_name);
         document.getElementById('auto_birthday').innerText = substr(trx[0].birthday);
         document.getElementById('auto_email').innerText = substr(trx[0].email);

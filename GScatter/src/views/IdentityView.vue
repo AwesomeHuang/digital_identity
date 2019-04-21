@@ -279,7 +279,7 @@
 				console.log(encrypt(this.identity.personal.birthday, birthday_key));
 
 				const account_name = "bitrocket666";
-				const contract_name = "did007";
+				const contract_name = "did008";
 				const asset_precicion = 5;
 
 				let client = GXClientFactory.instance({keyProvider:private_key, account:account_name,network:"wss://testnet.gxchain.org"});
