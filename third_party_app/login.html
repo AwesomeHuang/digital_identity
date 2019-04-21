@@ -315,7 +315,7 @@ window.contract = () => {
 	let app_name = "testApp";
 	let app_pubkey = "5Uj7f44nwQOASaryAAv6ZGUbUHcNfXdLiJCidrz9sHw/KOHKjQHfB6DVCQIDAQAB";
 	let keys = fname_key + "," + lname_key + "," + email_key;	
-    gxc.callContract('did007', 'authorize', { app_name: "test", keys: keys, app_pubkey:"test11" }, 0, true).then(trx => {
+    gxc.callContract('did007', 'authorize', { app_name: app_name, keys: keys, app_pubkey: app_pubkey }, 0, true).then(trx => {
         console.log(`call contract success`, trx);
         window.location.href="./index.html"
     }).catch(error => {
