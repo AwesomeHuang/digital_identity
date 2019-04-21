@@ -223,27 +223,38 @@
 
 			upload() {
                 const CryptoJS = require("crypto-js");
+				let tripledes = require("crypto-js/tripledes");
 
 				console.log(this.selectedLocation)
 				console.log(this.identity.personal)
                 
                 function sha256(str) {
-                    var hash = crypto.createHash("sha256");
-                    hash.update(str);
-                    return hash.digest("hex");
+                    /*var hash = crypto.createHash("sha256");*/
+                    /*hash.update(str);*/
+                    /*return hash.digest("hex");*/
+					return CryptoJS.SHA256(str).toString();
                 }
 
-                function encrypt(message, key) {
-                    var key_hex = CryptoJS.enc.Utf8.parse(key);
-                    var encrypted = CryptoJS.DES.encrypt(message, key_hex, {
-                        mode: CryptoJS.mode.ECB,
-                        padding: CryptoJS.pad.Pkcs7
-                    });
-                    return {
-                        key: key_hex,
-                        value: encrypted.toString()
-                    }
-                }
+				function decrypt(ciphertext, key) {
+					var key_hex = CryptoJS.enc.Utf8.parse(key);
+					let encryptedHexStr = CryptoJS.enc.Hex.parse(ciphertext);
+					let srcs = CryptoJS.enc.Base64.stringify(encryptedHexStr);
+					let decrypt = CryptoJS.AES.decrypt(srcs, key_hex, { mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7 });
+					let decryptedStr = decrypt.toString(CryptoJS.enc.Utf8);
+					return decryptedStr.toString();
+				}
+
+				function encrypt(message, key) {
+					var key_hex = CryptoJS.enc.Utf8.parse(key);
+					let srcs = CryptoJS.enc.Utf8.parse(message);
+					let encrypted = CryptoJS.AES.encrypt(srcs, key_hex,
+						{
+							mode: CryptoJS.mode.ECB,
+							padding: CryptoJS.pad.Pkcs7
+						}
+					);
+					return encrypted.ciphertext.toString().toUpperCase();
+				}
 
 				const private_key = "5JST8WrSnHd9zEJSvVW7tD8bMZ2z4UKVrv1aoBStydpJo9oU5J7";
 
@@ -258,25 +269,29 @@
                 const country_key = sha256(private_key + "country");
                 const address_key = sha256(private_key + "address");
 
-                let enc = encrypt(fname_key, "shit");
-                // let dec = decrypt(enc.value, enc.key_hex);
+				console.log(fname_key);
+                let ciphertext = encrypt("shit", fname_key);
+				console.log("ciphertext = ", ciphertext);
+                let secret = decrypt(ciphertext, fname_key);
+				console.log("secret = ", secret);
 
-                console.log(enc);
+				console.log(encrypt(this.identity.personal.birthday, birthday_key));
+
 
 				const account_name = "cyan666";
-				const contract_name = "did004";
+				const contract_name = "did005";
 				const asset_precicion = 5;
 
 				let client = GXClientFactory.instance({keyProvider:private_key, account:account_name,network:"wss://testnet.gxchain.org"});
 
 				client.callContract(contract_name, "adduser", {
-					first_name: encrypt(this.identity.personal.firstname, fname_key).value,
-					last_name: encrypt(this.identity.personal.lastname, lname_key).value,
-					birthday: encrypt(this.identity.personal.birthday, birthday_key).value,
-					email: encrypt(this.identity.personal.email, email_key).value,
-					phone: encrypt(this.identity.personal.phone, phone_key).value,
-					country: encrypt(this.identity.personal.country, country_key).value,
-					address: encrypt(this.identity.personal.address, address_key).value,
+					first_name: encrypt(this.identity.personal.firstname, fname_key),
+					last_name: encrypt(this.identity.personal.lastname, lname_key),
+					birthday: encrypt(this.identity.personal.birthday, birthday_key),
+					email: encrypt(this.identity.personal.email, email_key),
+					phone: encrypt(this.identity.personal.phone, phone_key),
+					country: encrypt(this.identity.personal.country, country_key),
+					address: encrypt(this.identity.personal.address, address_key),
 				}, 0, true).then(
 					tx => {
 						console.log(tx);

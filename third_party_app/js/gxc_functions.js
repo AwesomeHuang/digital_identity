@@ -129,7 +129,7 @@ window.getArbitrarySignature = async () => {
 
 const private_key = "5JST8WrSnHd9zEJSvVW7tD8bMZ2z4UKVrv1aoBStydpJo9oU5J7";
 
-function sha256(str) {
+window.sha256 = (str) => {
 	//var hash = crypto.createHash("sha256");
 	//hash.update(str);
 	//return hash.digest("hex");
@@ -144,7 +144,7 @@ const phone_key = sha256(private_key + "phone");
 const country_key = sha256(private_key + "country");
 const address_key = sha256(private_key + "address");
 
-function encrypt(message, key) {
+window.encrypt = (message, key) => {
 	var key_hex = CryptoJS.enc.Utf8.parse(key);
 	var encrypted = CryptoJS.DES.encrypt(message, key_hex, {
 		mode: CryptoJS.mode.ECB,
@@ -156,12 +156,14 @@ function encrypt(message, key) {
 	}
 }
 
-function decrypt (message, key) {
-    var plaintext = CryptoJS.DES.decrypt(message, key, {
+window.decrypt = (message, key) => {
+/*    var plaintext = CryptoJS.DES.decrypt(message, key, {
         mode: CryptoJS.mode.ECB,
         padding: CryptoJS.pad.Pkcs7
     })
     return plaintext.toString(CryptoJS.enc.Utf8)
+	*/
+	return message;
 }
 
 window.query = () => {
