@@ -127,7 +127,8 @@ window.getArbitrarySignature = async () => {
 //const CryptoJS = require("crypto-js");
 //const crypto = require("crypto");
 
-const private_key = "5JST8WrSnHd9zEJSvVW7tD8bMZ2z4UKVrv1aoBStydpJo9oU5J7";
+//const private_key = "5JST8WrSnHd9zEJSvVW7tD8bMZ2z4UKVrv1aoBStydpJo9oU5J7";
+const private_key = "5KSZfMozPQqi6NuynmoUw8Ejh3K1qEgYhL83fLDyRryDg4sGuku";
 
 window.sha256 = (str) => {
 	//var hash = crypto.createHash("sha256");
@@ -167,7 +168,7 @@ window.decrypt = (message, key) => {
 }
 
 window.query = () => {
-    gxc.getTableObjects('did004','user',0,100).then(trx => {
+    gxc.getTableObjects('did005','user',0,100).then(trx => {
 
 		let first_name = decrypt(trx[0].first_name, fname_key);
 		let last_name = decrypt(trx[0].last_name, lname_key);
@@ -188,7 +189,7 @@ window.query = () => {
     });
 }
 window.auto_query = () => {
-    gxc.getTableObjects('did004', 'user', 0, 100).then(trx => {
+    gxc.getTableObjects('did005', 'user', 0, 100).then(trx => {
         document.getElementById('auto_user_name').innerText = trx[0].first_name + trx[0].last_name;
         document.getElementById('auto_birthday').innerText = trx[0].birthday;
         document.getElementById('auto_email').innerText = trx[0].email;

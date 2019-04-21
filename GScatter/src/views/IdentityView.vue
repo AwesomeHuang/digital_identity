@@ -256,7 +256,8 @@
 					return encrypted.ciphertext.toString().toUpperCase();
 				}
 
-				const private_key = "5JST8WrSnHd9zEJSvVW7tD8bMZ2z4UKVrv1aoBStydpJo9oU5J7";
+				/*const private_key = "5JST8WrSnHd9zEJSvVW7tD8bMZ2z4UKVrv1aoBStydpJo9oU5J7";*/
+				const private_key = "5KSZfMozPQqi6NuynmoUw8Ejh3K1qEgYhL83fLDyRryDg4sGuku";
 
                 //console.log(sha256(private_key));
                 //9fa8ff92a5f4b1b2d93e624c1dec175482264651e12718f75257267ef7e58730
@@ -277,8 +278,7 @@
 
 				console.log(encrypt(this.identity.personal.birthday, birthday_key));
 
-
-				const account_name = "cyan666";
+				const account_name = "bitrocket666";
 				const contract_name = "did005";
 				const asset_precicion = 5;
 

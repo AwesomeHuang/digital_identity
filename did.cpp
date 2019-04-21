@@ -47,6 +47,15 @@ public:
     }
     
     /// @abi action
+    void authorize(const string &app_name, const string &keys, const string &app_pubkey)
+    {
+        // decrypt info use keys, ',' segmented keys
+        
+        // encrypt info with app_pubkey
+        print("hello");
+    }
+    
+    /// @abi action
     void adduser(const string &first_name, const string &last_name, const string &birthday, const string &email,\
         const string &phone, const string &country, const string &address)
     {
@@ -103,31 +112,31 @@ public:
             });
         } else if(key == "last_name") {
             users.modify(iter, owner, [&](auto &obj){
-                obj.first_name = value;
+                obj.last_name = value;
             });
         } else if(key == "birthday") {
             users.modify(iter, owner, [&](auto &obj){
-                obj.first_name = value;
+                obj.birthday = value;
             });
         } else if(key == "email") {
             users.modify(iter, owner, [&](auto &obj){
-                obj.first_name = value;
+                obj.email = value;
             });
         } else if(key == "phone") {
             users.modify(iter, owner, [&](auto &obj){
-                obj.first_name = value;
+                obj.phone = value;
             });
         } else if(key == "country") {
             users.modify(iter, owner, [&](auto &obj){
-                obj.first_name = value;
+                obj.country = value;
             });
         } else if(key == "address") {
             users.modify(iter, owner, [&](auto &obj){
-                obj.first_name = value;
+                obj.address = value;
             });
         }
     }
     
 };
 
-GRAPHENE_ABI(Did, (adduser)(update))
+GRAPHENE_ABI(Did, (adduser)(update)(authorize))
