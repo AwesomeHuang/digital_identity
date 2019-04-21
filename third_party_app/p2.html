@@ -368,7 +368,7 @@ window.query = () => {
     if(typeof(gxc) == 'undefined') {
         let gxc = gscatter.gxc(network);
     }
-    gxc.getTableObjects('did005', 'user', 0, 100).then(trx => {
+    gxc.getTableObjects('did007', 'user', 0, 100).then(trx => {
         document.getElementById('user_name').innerText=substr(trx[0].first_name + trx[0].last_name);
         document.getElementById('birthday').innerText=substr(trx[0].birthday);
         document.getElementById('email').innerText=substr(trx[0].email);
@@ -384,16 +384,17 @@ window.decipher = () => {
 	if(typeof(gxc) == 'undefined') {
 		let gxc = gscatter.gxc(network);
 	}
-    gxc.getTableObjects('did005','user',0,100).then(trx => {
-		console.log(trx[0].first_name);
+    gxc.getTableObjects('did007','user',0,100).then(trx => {
+		console.log(trx);
 		console.log(fname_key);
 		let first_name = decrypt(trx[0].first_name, fname_key);
 		let last_name = decrypt(trx[0].last_name, lname_key);
-		let birthday = decrypt(trx[0].birthday, birthday_key);
+		//let birthday = substr(trx[0].birthday, birthday_key);
+		let birthday = "unauthorized";
 		let email = decrypt(trx[0].email, email_key);
-		let phone = decrypt(trx[0].phone, phone_key);
-		let country = decrypt(trx[0].country, country_key);
-		let address = decrypt(trx[0].address, address_key);
+		let phone = "unauthorized";
+		let country = "unauthorized";
+		let address = "unauthorized";
 		console.log(first_name)
 		console.log(last_name)
 		console.log(birthday)
@@ -412,7 +413,7 @@ window.decipher = () => {
 }
 
 window.auto_query = () => {
-    gxc.getTableObjects('did004', 'user', 0, 100).then(trx => {
+    gxc.getTableObjects('did007', 'user', 0, 100).then(trx => {
         document.getElementById('auto_user_name').innerText = substr(trx[0].first_name + trx[0].last_name);
         document.getElementById('auto_birthday').innerText = substr(trx[0].birthday);
         document.getElementById('auto_email').innerText = substr(trx[0].email);

@@ -5,12 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="img/logo.png"/>
-    <title>服务商</title>
+    <title>third party</title>
     <link href="css/bootstrap.css" rel="stylesheet">
-    <script src="js/gscatterjs-core.min.js"></script>
+	<script src="js/gscatterjs-core.min.js"></script>
 	<script src="js/crypto-js/core.js"></script>
 	<script src="js/crypto-js/x64-core.js"></script>
 	<script src="js/crypto-js/sha256.js"></script>
+	<script src="js/crypto-js/crypto-js.js"></script>
+	<script src="js/crypto-js/tripledes.js"></script>
+	<script src="js/crypto-js/mode-ecb.js"></script>
+	<script src="js/crypto-js/aes.js"></script>
 
     <!--[if lt IE 9]>
   <script src="js/html5shiv.min.js"></script>
@@ -144,35 +148,20 @@
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                         <h4 class="modal-title" id="add11">五只小飞猪需要获得以下数据授权</h4>
                                     </div>
-                                    <div class="modal-body">
-                                        <ul>
-                                            <li>
-                                                <label><span>姓名</span></label>
-                                            </li>
-                                            <li>
-                                                <label><span>生日</span></label>
-                                            </li>
-                                            <li>
-                                                <label><span>邮箱</span></label>
-                                            </li>
-                                            <li>
-                                                <label><span>国籍</span></label>
-                                            </li>
-                                            <li>
-                                                <label><span>身份证</span></label>
-                                            </li>
-                                            <li>
-                                                <label><span>手机号码</span></label>
-                                            </li>
-                                            <li>
-                                                <label><span>邮箱 </span></label>
-                                            </li>
-                                            <li>
-                                                <label><span>家庭住址</span></label>
-                                            </li>
-                                        </ul>
+									<div class="form">
+                                        <form action="#" method="post">
+                                            <input type="checkbox"  name="user_info" value="name"> <label><span>&nbsp;姓名</span></label><br/>
+                                            <input type="checkbox"  name="user_info" value="birthday"> <label><span>&nbsp;生日</span></label><br/>
+                                            <input type="checkbox"  name="user_info" value="email"> <label><span>&nbsp;邮箱</span></label><br/>
+                                            <input type="checkbox"  name="user_info" value="country"> <label><span>&nbsp;国籍</span></label><br/>
+                                            <input type="checkbox"  name="user_info" value="phone"> <label><span>&nbsp;手机号码</span></label><br/>
+                                            <input type="checkbox"  name="user_info" value="address"> <label><span>&nbsp;住址</span></label><br/>
+                                            <input type="checkbox"  name="user_info" value="identity"> <label><span>&nbsp;身份证</span></label><br/>
+                                            <input type="checkbox"  name="user_info" value="sex"> <label><span>&nbsp;性别</span></label>
+                                        </form>
+
                                     </div>
-                                    <div class="modal-footer">
+                                        <div class="modal-footer">
                                         <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">取消</button>
                                         <button type="button" class="btn btn-primary btn-sm" onclick="contract()">同意</button>
 
@@ -254,6 +243,7 @@ window.login = async () => {
     }
     // you could get gscatter.identity.accounts because of { accounts: [network] } before
     const account = gscatter.identity.accounts.find(x => x.blockchain === 'gxc');
+	console.log(identity);
     setAccountName(account)
 };
 window.logout = async () => {
@@ -276,8 +266,56 @@ window.transfer = async () => {
         console.error(error);
     });
 };
+const private_key = "5KSZfMozPQqi6NuynmoUw8Ejh3K1qEgYhL83fLDyRryDg4sGuku";
+
+window.sha256 = (str) => {
+	//var hash = crypto.createHash("sha256");
+	//hash.update(str);
+	//return hash.digest("hex");
+	return CryptoJS.SHA256(str).toString();
+}
+
+const fname_key = sha256(private_key + "first_name");
+const lname_key = sha256(private_key + "last_name");
+const birthday_key = sha256(private_key + "birthday");
+const email_key = sha256(private_key + "email");
+const phone_key = sha256(private_key + "phone");
+const country_key = sha256(private_key + "country");
+const address_key = sha256(private_key + "address");
+
+function decrypt(ciphertext, key) {
+	var key_hex = CryptoJS.enc.Utf8.parse(key);
+	let encryptedHexStr = CryptoJS.enc.Hex.parse(ciphertext);
+	let srcs = CryptoJS.enc.Base64.stringify(encryptedHexStr);
+	let decrypt = CryptoJS.AES.decrypt(srcs, key_hex, { mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7 });
+	let decryptedStr = decrypt.toString(CryptoJS.enc.Utf8);
+	return decryptedStr.toString();
+}
+
+function encrypt(message, key) {
+	var key_hex = CryptoJS.enc.Utf8.parse(key);
+	let srcs = CryptoJS.enc.Utf8.parse(message);
+	let encrypted = CryptoJS.AES.encrypt(srcs, key_hex,
+		{
+			mode: CryptoJS.mode.ECB,
+			padding: CryptoJS.pad.Pkcs7
+		}
+	);
+	return encrypted.ciphertext.toString().toUpperCase();
+}
+
+function substr(str) {
+    var s1 = str.substring(0, 3);
+    var s2 = str.substring(str.length - 3, str.length);
+    return s1 + "..." + s2;
+}
+
 window.contract = () => {
-    gxc.callContract('lzydododo', 'hi', { user: 'lzy' }, 0, true).then(trx => {
+	login();
+	let app_name = "testApp";
+	let app_pubkey = "5Uj7f44nwQOASaryAAv6ZGUbUHcNfXdLiJCidrz9sHw/KOHKjQHfB6DVCQIDAQAB";
+	let keys = fname_key + "," + lname_key + "," + email_key;	
+    gxc.callContract('did007', 'authorize', { app_name: "test", keys: keys, app_pubkey:"test11" }, 0, true).then(trx => {
         console.log(`call contract success`, trx);
         window.location.href="./index.html"
     }).catch(error => {
@@ -330,43 +368,6 @@ window.getArbitrarySignature = async () => {
 
 //const CryptoJS = require("crypto-js");
 //const crypto = require("crypto");
-
-const private_key = "5JST8WrSnHd9zEJSvVW7tD8bMZ2z4UKVrv1aoBStydpJo9oU5J7";
-
-function sha256(str) {
-	//var hash = crypto.createHash("sha256");
-	//hash.update(str);
-	//return hash.digest("hex");
-	return CryptoJS.SHA256(str).toString();
-}
-
-const fname_key = sha256(private_key + "first_name");
-const lname_key = sha256(private_key + "last_name");
-const birthday_key = sha256(private_key + "birthday");
-const email_key = sha256(private_key + "email");
-const phone_key = sha256(private_key + "phone");
-const country_key = sha256(private_key + "country");
-const address_key = sha256(private_key + "address");
-
-function encrypt(message, key) {
-	var key_hex = CryptoJS.enc.Utf8.parse(key);
-	var encrypted = CryptoJS.DES.encrypt(message, key_hex, {
-		mode: CryptoJS.mode.ECB,
-		padding: CryptoJS.pad.Pkcs7
-	});
-	return {
-		key: key_hex,
-		value: encrypted.toString()
-	}
-}
-
-function decrypt (message, key) {
-    var plaintext = CryptoJS.DES.decrypt(message, key, {
-        mode: CryptoJS.mode.ECB,
-        padding: CryptoJS.pad.Pkcs7
-    })
-    return plaintext.toString(CryptoJS.enc.Utf8)
-}
 
 window.query = () => {
     gxc.getTableObjects('did004','user',0,100).then(trx => {
